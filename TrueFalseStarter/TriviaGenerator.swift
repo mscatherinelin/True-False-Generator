@@ -24,7 +24,7 @@ struct TriviaGenerator {
         ["Question": "Which of the following rivers is longest?", "Option 1": "Mississippi", "Option 2": "Yangtze", "Option 3": "Congo", "Option 4": "Mekong", "Answer": "2"],
         ["Question": "Which city is the oldest?", "Option 1": "Mexico City", "Option 2": "Cape Town", "Option 3": "San Juan", "Option 4": "Sydney", "Answer": "2"],
         ["Question": "Which country was the first to allow women to vote in national elections?", "Option 1": "Poland", "Option 2": "United States", "Option 3": "Sweden", "Option 4": "Senegal", "Answer": "1"],
-        ["Question": "Which of these countries won the most medals in the 2012 Summer Games?", "Option 1": "France", "Option 1": "Germany", "Option 3": "Japan", "Option 4": "Great Britain", "Answer": "4"]
+        ["Question": "Which of these countries won the most medals in the 2012 Summer Games?", "Option 1": "France", "Option 2": "Germany", "Option 3": "Japan", "Option 4": "Great Britain", "Answer": "4"]
     ]
     
     
