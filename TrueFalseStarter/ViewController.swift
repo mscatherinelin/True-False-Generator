@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
+    var indexOfSelectedTriviaData: Int = 0
     
     var gameSound: SystemSoundID = 0
     let triviaQuestions = TriviaGenerator()
@@ -43,8 +44,19 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
-        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trivia.count)
-        let questionDictionary = triviaQuestions.trivia[indexOfSelectedQuestion]
+        //select either the true or false trivia data strucutre or the four answer data structure
+        indexOfSelectedTriviaData = GKRandomSource.sharedRandom().nextInt(upperBound: 2)
+        let questionDictionary: [String: String]
+        
+        if indexOfSelectedTriviaData == 0 {
+            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trueFalseTrivia.count)
+            questionDictionary = triviaQuestions.trueFalseTrivia[indexOfSelectedQuestion]
+        }
+        else {
+            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.fourChoiceTrivia.count)
+            questionDictionary = triviaQuestions.fourChoiceTrivia[indexOfSelectedQuestion]
+        }
+        
         questionField.text = questionDictionary["Question"]
         playAgainButton.isHidden = true
     }
