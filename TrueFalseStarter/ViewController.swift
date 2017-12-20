@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var button3: UIButton!
     @IBOutlet weak var button4: UIButton!
     @IBOutlet weak var playAgainButton: UIButton!
+    lazy var buttons: [UIButton] = [self.button1, self.button2, self.button3, self.button4]
     
 
     override func viewDidLoad() {
@@ -92,13 +93,23 @@ class ViewController: UIViewController {
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
         questionsAsked += 1
+        
         let selectedQuestionDict: Dictionary<String,String>
         let correctAnswer: String
+        
+        //when button is clicked, lowlight the rest of the buttons
+        for button in buttons {
+            if(button == sender){
+                continue
+            }
+            button.backgroundColor = UIColor(red: 1/255.0, green: 52/255.0, blue: 70/255.0, alpha: 1.0)
+        }
         
         if indexOfSelectedTriviaData == 0 {
             selectedQuestionDict = triviaQuestions.trueFalseTrivia[indexOfSelectedQuestion]
             correctAnswer = selectedQuestionDict["Answer"]!
-            if (sender === button1 &&  correctAnswer == "True") || (sender === button2 && correctAnswer == "False") {
+            if (sender == button1 &&  correctAnswer == "True") || (sender === button2 && correctAnswer == "False") {
+                
                 correctQuestions += 1
                 questionField.text = "Correct!"
             } else {
@@ -108,6 +119,7 @@ class ViewController: UIViewController {
         else {
             selectedQuestionDict = triviaQuestions.fourChoiceTrivia[indexOfSelectedQuestion]
             correctAnswer = selectedQuestionDict["Answer"]!
+            
             if (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4") {
                 correctQuestions+=1
                 questionField.text = "Correct!"
@@ -118,8 +130,18 @@ class ViewController: UIViewController {
 
         loadNextRoundWithDelay(seconds: 2)
     }
+    
+    func buttonColorReset(){
+        for button in buttons {
+            button.backgroundColor = UIColor(red:12/255.0, green:121/255.0, blue:150/255.0, alpha:1.0)
+        }
+    }
 
     func nextRound() {
+        
+        //reset the color of the buttons
+        buttonColorReset()
+        
         if questionsAsked == questionsPerRound {
             // Game is over
             displayScore()
