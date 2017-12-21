@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="GillSans.ttc">
+            <string>GillSans-Bold</string>
+        </array>
         <array key="HelveticaNeue.ttc">
             <string>HelveticaNeue-Bold</string>
         </array>
@@ -64,7 +67,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sample Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3V-ih-1Ky">
-                                <rect key="frame" x="36" y="120" width="303" height="19.5"/>
+                                <rect key="frame" x="36" y="74" width="303" height="19.5"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="16"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -123,25 +126,34 @@
                                     <action selector="checkAnswer:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eXz-Ch-0A1"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Response Field" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rL-J1-Vjn">
+                                <rect key="frame" x="36" y="127" width="303" height="22"/>
+                                <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="19"/>
+                                <color key="textColor" red="0.92540913820000004" green="0.92554211620000004" blue="0.92537993190000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.16862745098039217" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="AS4-HX-g9f" firstAttribute="top" secondItem="J1V-MS-ECi" secondAttribute="bottom" constant="25" id="0E0-IB-HxI"/>
                             <constraint firstItem="K17-uy-MvB" firstAttribute="top" secondItem="ISB-k5-hRc" secondAttribute="bottom" constant="66" id="0Ev-V3-mP3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="K17-uy-MvB" secondAttribute="trailing" constant="20" id="7xd-X5-OBN"/>
-                            <constraint firstItem="I3V-ih-1Ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="8fn-n4-TR4"/>
+                            <constraint firstItem="I3V-ih-1Ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="54" id="8fn-n4-TR4"/>
                             <constraint firstAttribute="trailingMargin" secondItem="nWf-i4-ZPu" secondAttribute="trailing" constant="20" id="9Sv-GO-piN"/>
                             <constraint firstItem="nWf-i4-ZPu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="GVB-Wy-qSo"/>
-                            <constraint firstItem="J1V-MS-ECi" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="62.5" id="KVk-Iq-OiM"/>
+                            <constraint firstItem="J1V-MS-ECi" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="108.5" id="KVk-Iq-OiM"/>
                             <constraint firstItem="nWf-i4-ZPu" firstAttribute="top" secondItem="AS4-HX-g9f" secondAttribute="bottom" constant="28" id="NEd-au-4Xi"/>
                             <constraint firstItem="K17-uy-MvB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="ODv-ex-yw0"/>
                             <constraint firstItem="AS4-HX-g9f" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="Pcv-Jw-frg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2rL-J1-Vjn" secondAttribute="trailing" constant="20" id="RVE-R6-Ldp"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ISB-k5-hRc" secondAttribute="trailing" constant="20" id="V7W-K7-TwR"/>
                             <constraint firstItem="ISB-k5-hRc" firstAttribute="top" secondItem="nWf-i4-ZPu" secondAttribute="bottom" constant="28" id="XLM-TP-K8r"/>
                             <constraint firstAttribute="trailingMargin" secondItem="AS4-HX-g9f" secondAttribute="trailing" constant="20" id="YmD-PA-Jci"/>
+                            <constraint firstItem="J1V-MS-ECi" firstAttribute="top" secondItem="2rL-J1-Vjn" secondAttribute="bottom" constant="53" id="YvP-wV-UQ8"/>
                             <constraint firstItem="I3V-ih-1Ky" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="jrT-5J-QNZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="J1V-MS-ECi" secondAttribute="trailing" constant="20" id="mPm-wu-Wlk"/>
                             <constraint firstItem="ISB-k5-hRc" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="ok2-fM-5Ma"/>
+                            <constraint firstItem="2rL-J1-Vjn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="rzX-Sj-NyS"/>
                             <constraint firstItem="J1V-MS-ECi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="20" id="tdw-Hx-3KS"/>
                             <constraint firstAttribute="trailingMargin" secondItem="I3V-ih-1Ky" secondAttribute="trailing" constant="20" id="yci-qp-x0Y"/>
                         </constraints>
@@ -159,6 +171,7 @@
                         <outlet property="button4" destination="ISB-k5-hRc" id="NNj-rc-3nM"/>
                         <outlet property="playAgainButton" destination="K17-uy-MvB" id="0Bx-Cm-ye0"/>
                         <outlet property="questionField" destination="I3V-ih-1Ky" id="7UI-o2-ATi"/>
+                        <outlet property="responseField" destination="2rL-J1-Vjn" id="b4E-4X-3mr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

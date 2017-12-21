@@ -17,13 +17,12 @@ class ViewController: UIViewController {
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
     var indexOfSelectedTriviaData: Int = 0
-    
+
     var gameSound: SystemSoundID = 0
     let triviaQuestions = TriviaGenerator()
+    var questionsAlreadyAsked: [String] = []
     
-    
-    
-    
+    @IBOutlet weak var responseField: UILabel!
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var button1: UIButton!
     @IBOutlet weak var button2: UIButton!
@@ -47,6 +46,8 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
+        
+        responseField.isHidden = true
         //select either the true or false trivia data strucutre or the four answer data structure
         indexOfSelectedTriviaData = GKRandomSource.sharedRandom().nextInt(upperBound: 2)
         let questionDictionary: [String: String]
@@ -57,6 +58,11 @@ class ViewController: UIViewController {
             button4.isHidden = true
             indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trueFalseTrivia.count)
             questionDictionary = triviaQuestions.trueFalseTrivia[indexOfSelectedQuestion]
+            
+            //prevent repetition
+            while questionsAlreadyAsked.contains(questionDictionary["Question"]!){
+                indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trueFalseTrivia.count)
+            }
             button1.setTitle("True", for: .normal)
             button2.setTitle("False", for: .normal)
         }
@@ -66,6 +72,11 @@ class ViewController: UIViewController {
             button4.isHidden = false
             indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.fourChoiceTrivia.count)
             questionDictionary = triviaQuestions.fourChoiceTrivia[indexOfSelectedQuestion]
+            
+            //prevent repetition
+            while questionsAlreadyAsked.contains(questionDictionary["Question"]!){
+                indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.fourChoiceTrivia.count)
+            }
             button1.setTitle(questionDictionary["Option 1"], for: .normal)
             button2.setTitle(questionDictionary["Option 2"], for: .normal)
             button3.setTitle(questionDictionary["Option 3"], for: .normal)
@@ -73,11 +84,13 @@ class ViewController: UIViewController {
         }
         
         questionField.text = questionDictionary["Question"]
+        questionsAlreadyAsked.append(questionDictionary["Question"]!)
         playAgainButton.isHidden = true
     }
     
     func displayScore() {
         // Hide the answer buttons
+        responseField.isHidden = true
         button1.isHidden = true
         button2.isHidden = true
         button3.isHidden = true
@@ -91,6 +104,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func checkAnswer(_ sender: UIButton) {
+        responseField.isHidden = false
         // Increment the questions asked counter
         questionsAsked += 1
         
@@ -111,9 +125,11 @@ class ViewController: UIViewController {
             if (sender == button1 &&  correctAnswer == "True") || (sender === button2 && correctAnswer == "False") {
                 
                 correctQuestions += 1
-                questionField.text = "Correct!"
+                responseField.text = "Correct!"
+                responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
             } else {
-                questionField.text = "Sorry, wrong answer!"
+                responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
+                responseField.text = "Sorry, the answer is \(correctAnswer)"
             }
         }
         else {
@@ -122,9 +138,11 @@ class ViewController: UIViewController {
             
             if (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4") {
                 correctQuestions+=1
-                questionField.text = "Correct!"
+                responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
+                responseField.text = "Correct!"
             } else {
-                questionField.text = "Sorry, wrong answer!"
+                responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
+                responseField.text = "Sorry, the answer is incorrect!"
             }
         }
 
