@@ -12,12 +12,10 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    let questionsPerRound = 10
+    let questionsPerRound = 4
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
-    var indexOfSelectedTriviaData: Int = 0
-
     var gameSound: SystemSoundID = 0
     let triviaQuestions = TriviaGenerator()
     var questionsAlreadyAsked: [String] = []
@@ -114,13 +112,14 @@ class ViewController: UIViewController {
         selectedQuestionDict = triviaQuestions.trivia[indexOfSelectedQuestion]
         if let correctAnswer = selectedQuestionDict["Answer"] {
             
+            
             if (sender == button1 &&  correctAnswer == "True") || (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4"){
                 correctQuestions += 1
                 responseField.text = "Correct!"
                 responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
             } else {
                 responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
-                responseField.text = "Sorry, the answer is incorrect!"
+                responseField.text = "Sorry, the answer is \(retrieveAnswerString(answer:correctAnswer, selectedQuestionDict: selectedQuestionDict))!"
             }
             
         }
@@ -128,9 +127,15 @@ class ViewController: UIViewController {
         loadNextRoundWithDelay(seconds: 2)
     }
     
-    func buttonColorReset(){
-        for button in buttons {
-            button.backgroundColor = UIColor(red:12/255.0, green:121/255.0, blue:150/255.0, alpha:1.0)
+    func retrieveAnswerString(answer: String, selectedQuestionDict: Dictionary<String, String>) -> String {
+        switch answer {
+        case "True": return "True"
+        case "False": return "False"
+        case "1": return selectedQuestionDict["Option 1"]!
+        case "2": return selectedQuestionDict["Option 2"]!
+        case"3": return selectedQuestionDict["Option 3"]!
+        case"4": return selectedQuestionDict["Option 4"]!
+        default: return "No solution"
         }
     }
 
@@ -162,6 +167,11 @@ class ViewController: UIViewController {
     
     
     // MARK: Helper Methods
+    func buttonColorReset(){
+        for button in buttons {
+            button.backgroundColor = UIColor(red:12/255.0, green:121/255.0, blue:150/255.0, alpha:1.0)
+        }
+    }
     
     func loadNextRoundWithDelay(seconds: Int) {
         // Converts a delay in seconds to nanoseconds as signed 64 bit integer
