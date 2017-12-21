@@ -17,6 +17,8 @@ class ViewController: UIViewController {
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
     var gameSound: SystemSoundID = 0
+    var correctSound: SystemSoundID = 0
+    var incorrectSound: SystemSoundID = 0
     let triviaQuestions = TriviaGenerator()
     var questionsAlreadyAsked: [String] = []
     
@@ -32,9 +34,9 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadGameStartSound()
+        loadSound(of: "GameSound", withType: "wav", variable: &gameSound)
         // Start game
-        playGameStartSound()
+        playSound(soundId:gameSound)
         displayQuestion()
     }
 
@@ -113,13 +115,17 @@ class ViewController: UIViewController {
         if let correctAnswer = selectedQuestionDict["Answer"] {
             
             
-            if (sender == button1 &&  correctAnswer == "True") || (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4"){
+            if (sender == button1 &&  correctAnswer == "True") || (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button4 && correctAnswer == "4"){
                 correctQuestions += 1
                 responseField.text = "Correct!"
+                loadSound(of: "Correct-answer", withType: "mp3", variable: &correctSound)
+                playSound(soundId: correctSound)
                 responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
             } else {
                 responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
                 responseField.text = "Sorry, the answer is \(retrieveAnswerString(answer:correctAnswer, selectedQuestionDict: selectedQuestionDict))!"
+                loadSound(of: "Wrong-answer", withType: "mp3", variable: &incorrectSound)
+                playSound(soundId: incorrectSound)
             }
             
         }
@@ -184,15 +190,27 @@ class ViewController: UIViewController {
             self.nextRound()
         }
     }
-
-    func loadGameStartSound() {
-        let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
-        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
-        AudioServicesCreateSystemSoundID(soundURL as CFURL, &gameSound)
-    }
     
-    func playGameStartSound() {
-        AudioServicesPlaySystemSound(gameSound)
+    func loadSound(of name: String, withType type: String, variable : inout SystemSoundID){
+        let pathToSoundFile = Bundle.main.path(forResource: name, ofType: type)
+        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
+        AudioServicesCreateSystemSoundID(soundURL as CFURL, &variable)
+        
+    }
+//    func correctAnswerSound(){
+//        let pathToSoundFile = Bundle.main.path(forResource: "Correct-answer", ofType: "mp3")
+//        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
+//        AudioServicesCreateSystemSoundID(soundURL as CFURL, &correctSound)
+//    }
+//
+//    func loadGameStartSound() {
+//        let pathToSoundFile = Bundle.main.path(forResource: "GameSound", ofType: "wav")
+//        let soundURL = URL(fileURLWithPath: pathToSoundFile!)
+//        AudioServicesCreateSystemSoundID(soundURL as CFURL, &gameSound)
+//    }
+    
+    func playSound(soundId: SystemSoundID) {
+        AudioServicesPlaySystemSound(soundId)
     }
 }
 

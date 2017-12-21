@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		062D05361FEC555700E0AF32 /* Wrong-answer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 062D05351FEC555700E0AF32 /* Wrong-answer.mp3 */; };
+		062D05381FEC556400E0AF32 /* Correct-answer.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 062D05371FEC556400E0AF32 /* Correct-answer.mp3 */; };
 		066B58821FEA2ECE00D5BB28 /* TriviaGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066B58811FEA2ECE00D5BB28 /* TriviaGenerator.swift */; };
 		97093D3C1C913506001275BC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97093D3B1C913506001275BC /* AppDelegate.swift */; };
 		97093D3E1C913506001275BC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97093D3D1C913506001275BC /* ViewController.swift */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		062D05351FEC555700E0AF32 /* Wrong-answer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Wrong-answer.mp3"; path = "../../../Wrong-answer-sound-effect/Wrong-answer.mp3"; sourceTree = "<group>"; };
+		062D05371FEC556400E0AF32 /* Correct-answer.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Correct-answer.mp3"; path = "../../../Correct-answer/Correct-answer.mp3"; sourceTree = "<group>"; };
 		066B58811FEA2ECE00D5BB28 /* TriviaGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaGenerator.swift; sourceTree = "<group>"; };
 		97093D381C913506001275BC /* TrueFalseStarter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrueFalseStarter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97093D3B1C913506001275BC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -58,12 +62,14 @@
 		97093D3A1C913506001275BC /* TrueFalseStarter */ = {
 			isa = PBXGroup;
 			children = (
+				062D05351FEC555700E0AF32 /* Wrong-answer.mp3 */,
 				97093D3B1C913506001275BC /* AppDelegate.swift */,
 				97093D3D1C913506001275BC /* ViewController.swift */,
 				97093D3F1C913506001275BC /* Main.storyboard */,
 				97093D421C913506001275BC /* Assets.xcassets */,
 				97093D441C913506001275BC /* LaunchScreen.storyboard */,
 				97093D471C913506001275BC /* Info.plist */,
+				062D05371FEC556400E0AF32 /* Correct-answer.mp3 */,
 				97093D521C932116001275BC /* GameSound.wav */,
 				066B58811FEA2ECE00D5BB28 /* TriviaGenerator.swift */,
 			);
@@ -131,6 +137,8 @@
 			files = (
 				97093D531C932116001275BC /* GameSound.wav in Resources */,
 				97093D461C913506001275BC /* LaunchScreen.storyboard in Resources */,
+				062D05361FEC555700E0AF32 /* Wrong-answer.mp3 in Resources */,
+				062D05381FEC556400E0AF32 /* Correct-answer.mp3 in Resources */,
 				97093D431C913506001275BC /* Assets.xcassets in Resources */,
 				97093D411C913506001275BC /* Main.storyboard in Resources */,
 			);
