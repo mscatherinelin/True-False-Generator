@@ -12,7 +12,7 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    let questionsPerRound = 4
+    let questionsPerRound = 10
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
@@ -46,37 +46,30 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
-        
         responseField.isHidden = true
-        //select either the true or false trivia data strucutre or the four answer data structure
-        indexOfSelectedTriviaData = GKRandomSource.sharedRandom().nextInt(upperBound: 2)
-        let questionDictionary: [String: String]
         
-        //only true false questions
-        if indexOfSelectedTriviaData == 0 {
+        var questionDictionary: [String: String]
+        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trivia.count)
+        questionDictionary = triviaQuestions.trivia[indexOfSelectedQuestion]
+        
+        //prevent repetition
+        if var question = questionDictionary["Question"] {
+            while questionsAlreadyAsked.contains(question){
+                indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trivia.count)
+                questionDictionary = triviaQuestions.trivia[indexOfSelectedQuestion]
+                question = questionDictionary["Question"]!
+            }
+            questionsAlreadyAsked.append(question)
+        }
+        
+        if questionDictionary["Answer"] == "True" || questionDictionary["Answer"] == "False" {
             button3.isHidden = true
             button4.isHidden = true
-            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trueFalseTrivia.count)
-            questionDictionary = triviaQuestions.trueFalseTrivia[indexOfSelectedQuestion]
-            
-            //prevent repetition
-            while questionsAlreadyAsked.contains(questionDictionary["Question"]!){
-                indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.trueFalseTrivia.count)
-            }
             button1.setTitle("True", for: .normal)
             button2.setTitle("False", for: .normal)
-        }
-        //four choice trivia
-        else {
+        } else {
             button3.isHidden = false
             button4.isHidden = false
-            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.fourChoiceTrivia.count)
-            questionDictionary = triviaQuestions.fourChoiceTrivia[indexOfSelectedQuestion]
-            
-            //prevent repetition
-            while questionsAlreadyAsked.contains(questionDictionary["Question"]!){
-                indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: triviaQuestions.fourChoiceTrivia.count)
-            }
             button1.setTitle(questionDictionary["Option 1"], for: .normal)
             button2.setTitle(questionDictionary["Option 2"], for: .normal)
             button3.setTitle(questionDictionary["Option 3"], for: .normal)
@@ -87,7 +80,7 @@ class ViewController: UIViewController {
         questionsAlreadyAsked.append(questionDictionary["Question"]!)
         playAgainButton.isHidden = true
     }
-    
+
     func displayScore() {
         // Hide the answer buttons
         responseField.isHidden = true
@@ -109,7 +102,6 @@ class ViewController: UIViewController {
         questionsAsked += 1
         
         let selectedQuestionDict: Dictionary<String,String>
-        let correctAnswer: String
         
         //when button is clicked, lowlight the rest of the buttons
         for button in buttons {
@@ -119,31 +111,18 @@ class ViewController: UIViewController {
             button.backgroundColor = UIColor(red: 1/255.0, green: 52/255.0, blue: 70/255.0, alpha: 1.0)
         }
         
-        if indexOfSelectedTriviaData == 0 {
-            selectedQuestionDict = triviaQuestions.trueFalseTrivia[indexOfSelectedQuestion]
-            correctAnswer = selectedQuestionDict["Answer"]!
-            if (sender == button1 &&  correctAnswer == "True") || (sender === button2 && correctAnswer == "False") {
-                
+        selectedQuestionDict = triviaQuestions.trivia[indexOfSelectedQuestion]
+        if let correctAnswer = selectedQuestionDict["Answer"] {
+            
+            if (sender == button1 &&  correctAnswer == "True") || (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4"){
                 correctQuestions += 1
                 responseField.text = "Correct!"
                 responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
             } else {
                 responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
-                responseField.text = "Sorry, the answer is \(correctAnswer)"
-            }
-        }
-        else {
-            selectedQuestionDict = triviaQuestions.fourChoiceTrivia[indexOfSelectedQuestion]
-            correctAnswer = selectedQuestionDict["Answer"]!
-            
-            if (sender == button1 && correctAnswer == "1") || (sender == button2 && correctAnswer == "2") || (sender == button3 && correctAnswer == "3") || (sender == button3 && correctAnswer == "4") {
-                correctQuestions+=1
-                responseField.textColor = UIColor(red: 105/255.0, green: 94/255.0, blue: 133/255.0, alpha: 1.0)
-                responseField.text = "Correct!"
-            } else {
-                responseField.textColor = UIColor(red: 116/255.0, green: 150/255.0, blue: 61/255.0, alpha: 1.0)
                 responseField.text = "Sorry, the answer is incorrect!"
             }
+            
         }
 
         loadNextRoundWithDelay(seconds: 2)
@@ -180,9 +159,8 @@ class ViewController: UIViewController {
         correctQuestions = 0
         nextRound()
     }
-
-
-
+    
+    
     // MARK: Helper Methods
     
     func loadNextRoundWithDelay(seconds: Int) {
